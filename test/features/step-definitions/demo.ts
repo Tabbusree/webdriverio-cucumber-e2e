@@ -25,3 +25,37 @@ Then(/^Url should match (.*)$/, async function (expectedUrl) {
   let actualUrl = await browser.getUrl();
   chai.expect(actualUrl).to.equal(expectedUrl);
 });
+
+/*
+WebInteractions
+*/
+
+Given(/^A Web page is opened$/, async function () {
+  await browser.url("/inputs");
+  await browser.maximizeWindow();
+  await browser.setTimeout({ implicit: 15000, pageLoad: 10000 });
+});
+
+When(/^Perform web interactions$/, async function () {
+  /**
+   * Input box
+   * Actions
+   * 1. Type into input box
+   * 2. Clear the field and type or just add value
+   * 3. Click and type
+   * 4. Slow typing
+   */
+
+  let num = 12345;
+  let strNum = num.toString();
+  let element = await $(`[type=number]`);
+  //await element.scrollIntoView()
+  //await element.setValue(strNum)  //setValue and addValue methods accept any datatype as the argument
+  await element.click();
+  for (let i = 0; i < strNum.length; i++) {
+    let charStr = strNum.charAt(i);
+    await browser.pause(1000);
+    await browser.keys(charStr); //This method to type the number in the field slowly
+  }
+  await browser.debug();
+});
