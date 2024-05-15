@@ -31,7 +31,7 @@ WebInteractions
 */
 
 Given(/^A Web page is opened$/, async function () {
-  await browser.url("/frames");
+  await browser.url("/");
   await browser.maximizeWindow();
   await browser.setTimeout({ implicit: 15000, pageLoad: 10000 });
 });
@@ -151,7 +151,7 @@ When(/^Perform web interactions$/, async function () {
    */
 
   //Open new window
-/*  (await $(`=Click Here`)).click(); //using link text
+  /*  (await $(`=Click Here`)).click(); //using link text
   (await $(`=Elemental Selenium`)).click();
 
   let currentWinTitle = await browser.getTitle();
@@ -191,7 +191,7 @@ When(/^Perform web interactions$/, async function () {
 
   /**
    * 5. Handling alerts
-   * 
+   *
    * Methods used: Browser commands
    * 1. isAlertOpen()  //return boolean
    * 2. acceptAlert()  //clcick ok
@@ -200,7 +200,7 @@ When(/^Perform web interactions$/, async function () {
    * 5. sendAlertText() //send text
    */
 
- /* await $(`button=Click for JS Alert`).click()
+  /* await $(`button=Click for JS Alert`).click()
   if(await browser.isAlertOpen()){    //Check first if there is any alert present
     await browser.acceptAlert()
     let assert_val = await (await $(`//p[@id="result"]`))
@@ -209,7 +209,7 @@ When(/^Perform web interactions$/, async function () {
     chai.expect(assert_ele).to.equal(`You successfully clicked an alert`)
   } */
 
-/*  await $(`button=Click for JS Confirm`).click()
+  /*  await $(`button=Click for JS Confirm`).click()
   if(await browser.isAlertOpen()){
     await browser.dismissAlert()
     let confirmEle = await $(`p=You clicked: Cancel`)
@@ -218,7 +218,7 @@ When(/^Perform web interactions$/, async function () {
     chai.expect(confirmAssert).to.equal(`You clicked: Cancel`)
   } */
 
- /* await $(`button=Click for JS Prompt`).click()
+  /* await $(`button=Click for JS Prompt`).click()
   if(await browser.isAlertOpen()){
     let alert_Text = await browser.getAlertText()
     console.log(`>> alert_Text: ${alert_Text}`);
@@ -241,20 +241,39 @@ When(/^Perform web interactions$/, async function () {
    * 2. switchToParentFrame()
    */
 
-  await $(`=iFrame`).click()
+  /*  await $(`=iFrame`).click()
   let frame_ele = await $(`#mce_0_ifr`)
   //Switching to iframe
   await browser.switchToFrame(frame_ele)
   //interacting inside the frame
   await $(`#tinymce`).setValue(`Typing in the frame`)
   //switching back to the main frame
-  await browser.switchToParentFrame()
+  await browser.switchToParentFrame()   */
 
-  await browser.debug()
+  /**
+   * 8. Key press
+   * Method used:
+   * 1. keys
+   */
 
+ /* await $(`=iFrame`).click();
+  let frame_ele = await $(`#mce_0_ifr`);
+  //Switching to iframe
+  await browser.switchToFrame(frame_ele);
+  //interacting inside the frame
+  await $(`#tinymce`).click()
+  await browser.keys(["Control", "A"]); 
+  await browser.pause(1000);
+  await browser.keys("Delete");
+  await $(`#tinymce`).addValue(`Typing in the frame`);
+  //switching back to the main frame
+  await browser.switchToParentFrame();  */
 
-
+  /**
+   * 9. Basic scrolling
+   * Methods used:Element method
+   * 1. scrollIntoView
+   */
+  await $(`span=Ways to save and get value on Amazon`).scrollIntoView(false)
+  await browser.debug();
 });
-
-
-
