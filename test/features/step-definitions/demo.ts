@@ -6,6 +6,7 @@ Given(/^Google page is opened$/, async function () {
   await browser.url("https://www.google.com");
   browser.pause(1000);
   console.log(`After opening browser`);
+//  console.log(`>>brrowserObj: ${JSON.stringify(browser)}`);
 });
 
 When(/^Search with (.*)$/, async function (searchItem) {
@@ -13,6 +14,7 @@ When(/^Search with (.*)$/, async function (searchItem) {
   let element = await $(`[name=q]`);
   await element.setValue(searchItem);
   await browser.keys("Enter");
+//  console.log(`>>elementObj: ${JSON.stringify(element)}`);
 });
 
 Then(/^Click on first search result$/, async function () {
@@ -22,6 +24,9 @@ Then(/^Click on first search result$/, async function () {
 
 Then(/^Url should match (.*)$/, async function (expectedUrl) {
   console.log(`>> ExpectedUrl: ${expectedUrl}`);
+  await browser.waitUntil(async function(){ 
+    return await browser.getTitle() === "WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO"
+  }, {timeout: 20000, interval: 500, timeoutMsg:`Failed loading wdio web page:${await browser.getTitle()}`})
   let actualUrl = await browser.getUrl();
   chai.expect(actualUrl).to.equal(expectedUrl);
 });
@@ -31,7 +36,7 @@ WebInteractions
 */
 
 Given(/^A Web page is opened$/, async function () {
-  await browser.url("/");
+  await browser.url("https://www.amazon.com.au/");
   await browser.maximizeWindow();
   await browser.setTimeout({ implicit: 15000, pageLoad: 10000 });
 });
@@ -256,7 +261,7 @@ When(/^Perform web interactions$/, async function () {
    * 1. keys
    */
 
- /* await $(`=iFrame`).click();
+  /* await $(`=iFrame`).click();
   let frame_ele = await $(`#mce_0_ifr`);
   //Switching to iframe
   await browser.switchToFrame(frame_ele);
@@ -271,9 +276,132 @@ When(/^Perform web interactions$/, async function () {
 
   /**
    * 9. Basic scrolling
+   * Url: https://www.amazon.com.au/
    * Methods used:Element method
    * 1. scrollIntoView
    */
-  await $(`span=Ways to save and get value on Amazon`).scrollIntoView(false)
+  // await $(`span=Ways to save and get value on Amazon`).scrollIntoView(false)
+
+  /**
+   * 10. Web Tables
+   * Topics:
+   * 1. Check number of rows and columns
+   * 2. Get whole table data
+   * 3. Get single row [based on condition]
+   * 4. Get single column
+   * 5. Get single cell value [based on another cell]
+   */
+
+  /**1. Check number of rows and columns */
+/*  let rowCount = await $$(`//table[@id="table1"]/tbody/tr`).length;
+  chai.expect(rowCount).to.equal(4);
+  console.log(`>> Number of rows: ${rowCount}`);
+
+  let colCount = await $$(`//table[@id="table1"]/thead/tr/th`).length;
+  chai.expect(colCount).to.equal(6);
+  console.log(`>>Number of columns: ${colCount}`);  */
+
+  /**2. Get whole table data */
+  /* let arr = []
+  for(let i=0; i < rowCount; i++){
+    let personObj = {
+      lastname: "",
+      firstname: "",
+      email: "",
+      due: "",
+      website: "",
+    }
+    for(let j=0; j<colCount; j++){
+      let cellValue = await $(`//table[@id="table1"]/tbody/tr[${i+1}]/td[${j+1}]`).getText()
+      if(j===0) personObj.lastname = cellValue
+      if(j===1) personObj.firstname = cellValue
+      if(j===2) personObj.email = cellValue
+      if(j===3) personObj.due = cellValue
+      if(j===4) personObj.website = cellValue
+    }
+    arr.push(personObj)
+  }
+  console.log(`>>Whole table: ${JSON.stringify(arr)}`);  */
+
+  /**3. Get single row [based on condition] */
+/*  let arr = [];
+  for (let i = 0; i < rowCount; i++) {
+    let personObj = {
+      lastname: "",
+      firstname: "",
+      email: "",
+      due: "",
+      website: "",
+    };
+    for (let j = 0; j < colCount; j++) {
+      let cellValue = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[${j + 1}]`).getText();
+      let firstname = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[2]`).getText();
+      if (firstname === "Jason") {
+        if (j === 0) personObj.lastname = cellValue;
+        if (j === 1) personObj.firstname = cellValue;
+        if (j === 2) personObj.email = cellValue;
+        if (j === 3) personObj.due = cellValue;
+        if (j === 4) personObj.website = cellValue;
+      }
+    }
+    if(personObj.firstname){  //will get only the valid value
+      arr.push(personObj);
+    }
+    
+  }
+  console.log(`>>Whole table: ${JSON.stringify(arr)}`);  */
+
+  /** 4. Get single column*/
+/*  let arr = []
+  for(let i=0; i<rowCount; i++){
+    let cellValue = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[4]`).getText();
+    arr.push(cellValue)
+  }
+  console.log(`Single column value: ${arr}`); */
+
+  /**5. Get single cell value [based on another cell] */
+/*  let arr = []
+  for(let i=0; i<rowCount; i++){
+    let price = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[4]`).getText();
+    let firstname = await $(`//table[@id="table1"]/tbody/tr[${i + 1}]/td[2]`).getText();
+    if(+(price.replace("$","")) > 50){
+      arr.push(firstname)
+    }
+  }
+  console.log(`>> Firstname from Price value: ${arr}`);  */
+
+  /**
+   * 11. Advanced scrolling
+   * 
+   * VISIBLE PORTION
+   * windows object:
+   * 1. scrollBy
+   * Y -> [-]window.innerheight
+   */
+  //Scroll down
+  await browser.execute(()=>{
+    window.scrollBy(0, window.innerHeight)
+  })
+  await browser.pause(2000)
+  //Scroll top
+  await browser.execute(()=>{
+    window.scrollBy(0, -window.innerHeight)
+  })
+  await browser.pause(2000)
+
+  /**
+   * INVISIBLE PORTION
+   * * windows object:
+   * 1. scrollTo
+   * Y -> document.body.scrollTop[scrollHeight]
+   */
+
+  await browser.execute(()=>{
+    window.scrollTo(0, document.body.scrollHeight)  //Scroll to the bottom of the page
+  })
+  await browser.pause(2000)
+  await browser.execute(()=>{
+    window.scrollTo(0, document.body.scrollTop)  //Scroll to the top of the page
+  })
   await browser.debug();
 });

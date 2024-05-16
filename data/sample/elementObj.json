@@ -1,0 +1,42 @@
+{
+    "sessionId": "b7f4b8d3e5d9de7acf42367eeaccd030",
+    "elementId": "f.4F618E3FA15EB62B5EFD4C18EFAE03CA.d.B50114149E0A1B71084F436EC603A3CA.e.2",
+    "element-6066-11e4-a52e-4f735466cecf": "f.4F618E3FA15EB62B5EFD4C18EFAE03CA.d.B50114149E0A1B71084F436EC603A3CA.e.2",
+    "selector": "[name=q]",
+    "parent": {
+        "sessionId": "b7f4b8d3e5d9de7acf42367eeaccd030",
+        "capabilities": {
+            "acceptInsecureCerts": false,
+            "browserName": "chrome",
+            "browserVersion": "124.0.6367.207",
+            "chrome": {
+                "chromedriverVersion": "124.0.6367.207 (a9001a6e39fbaa559510ca866052950457dd4e6b-refs/branch-heads/6367_201@{#3})",
+                "userDataDir": "C:\\Users\\tsridhar\\AppData\\Local\\Temp\\scoped_dir29180_1830007200"
+            },
+            "fedcm:accounts": true,
+            "goog:chromeOptions": {
+                "debuggerAddress": "localhost:59783"
+            },
+            "networkConnectionEnabled": false,
+            "pageLoadStrategy": "normal",
+            "platformName": "windows",
+            "proxy": {},
+            "setWindowRect": true,
+            "strictFileInteractability": false,
+            "timeouts": {
+                "implicit": 15000,
+                "pageLoad": 20000,
+                "script": 30000
+            },
+            "unhandledPromptBehavior": "dismiss and notify",
+            "webauthn:extension:credBlob": true,
+            "webauthn:extension:largeBlob": true,
+            "webauthn:extension:minPinLength": true,
+            "webauthn:extension:prf": true,
+            "webauthn:virtualAuthenticators": true,
+            "wdio:driverPID": 29180
+        }
+    },
+    "isReactElement": false,
+    "isShadowElement": false
+}
