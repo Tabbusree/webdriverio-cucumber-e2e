@@ -1,5 +1,5 @@
 import { Given } from "@wdio/cucumber-framework";
-import * as chai from "chai";
+// import * as chai from "chai";
 
 Given(/^Login to inventory web application$/, async function () {
   /**1. Launching the inventory app */

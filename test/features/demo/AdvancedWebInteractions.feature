@@ -1,6 +1,6 @@
 Feature: Advanced WebPage Interactions
 
-  @advancedweb
+  @advancedweb @smoke
   Scenario Outline: Demo Advanced WebPage Interactions
     Given Login to inventory web application
     # Then Inventory page should list <NumberOfProducts>
